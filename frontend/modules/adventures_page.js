@@ -1,4 +1,5 @@
 import config from "../conf/index.js";
+let cacheData = "";
 
 //Implementation to extract city from query params
 function getCityFromURL(search) {
@@ -18,6 +19,7 @@ async function fetchAdventures(city) {
   try {
     let response = await fetch(url);
     let data = await response.json();
+    cacheData = data;
     return data;
   } catch (error) {
     return null;
@@ -29,6 +31,7 @@ function addAdventureToDOM(adventures) {
   // TODO: MODULE_ADVENTURES
   // 1. Populate the Adventure Cards and insert those details into the DOM
   const divElement = document.getElementById("data");
+  divElement.innerHTML = "";
   const elements = [];
 
   adventures.forEach((place) => {
@@ -164,10 +167,30 @@ function generateFilterPillsAndUpdateDOM(filters) {
   if (filters.category.length) {
     filters.category.forEach((category) => {
       const categoryDiv = document.createElement("div");
-      categoryDiv.classList.add("category-filter");
+      categoryDiv.setAttribute(
+        "class",
+        "category-filter d-flex align-items-baseline"
+      );
       const categoryText = document.createElement("span");
       categoryText.innerText = category;
       categoryDiv.append(categoryText);
+
+      const closeButton = document.createElement("button");
+      closeButton.setAttribute("class", "category-filter-close btn p-1");
+      closeButton.innerHTML = `<i class="bi bi-x-circle"></i>`;
+      closeButton.addEventListener("click", () => {
+        const index = filters.category.indexOf(category);
+        if (index !== -1) {
+          filters.category.splice(index, 1);
+          document.getElementById("data").textContent = "";
+          document.getElementById("category-list").textContent = "";
+          generateFilterPillsAndUpdateDOM(filters);
+          let filteredAdventures = filterFunction(cacheData, filters);
+          addAdventureToDOM(filteredAdventures);
+          saveFiltersToLocalStorage(filters);
+        }
+      });
+      categoryDiv.append(closeButton);
 
       elements.push(categoryDiv);
     });
@@ -176,6 +199,29 @@ function generateFilterPillsAndUpdateDOM(filters) {
   categoryList.innerHTML = "";
   categoryList.append(...elements);
 }
+
+// Creates a new adventures for the particular city
+
+async function addNewAdventures(city) {
+  const url = config.backendEndpoint + "/adventures/new";
+  const dataToSend = { city: city };
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataToSend),
+    });
+    const data = await response.json();
+    location.reload();
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+}
+
 export {
   getCityFromURL,
   fetchAdventures,
@@ -186,4 +232,5 @@ export {
   saveFiltersToLocalStorage,
   getFiltersFromLocalStorage,
   generateFilterPillsAndUpdateDOM,
+  addNewAdventures,
 };
