@@ -11,6 +11,10 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
   </head>
 
   <body>
@@ -109,8 +113,16 @@
         </div>
         <!-- Display Adventures cards -->
         <div class="row" id="data"></div>
+
+        <!-- Add a new Adventure -->
+        <div class="d-flex justify-content-center mt-3">
+          <button class="reservation-visit-button" id="addNewAdventure">
+            Add New Adventure <i class="bi bi-plus-circle px-1"></i>
+          </button>
+        </div>
       </div>
     </div>
+
     <!-- Footer -->
     <footer>
       <div class="container">© QTrip 2020</div>
@@ -134,6 +146,7 @@
         saveFiltersToLocalStorage,
         getFiltersFromLocalStorage,
         generateFilterPillsAndUpdateDOM,
+        addNewAdventures,
       } from "../../modules/adventures_page.js";
 
       // Declaring global variable adventure
@@ -163,6 +176,14 @@
 
         // Updates the DOM with filter pills if any
         generateFilterPillsAndUpdateDOM(filters);
+
+        //Creates a new adventures for the particular city
+        document
+          .getElementById("addNewAdventure")
+          .addEventListener("click", async function () {
+            let city = await getCityFromURL(window.location.search);
+            let data = await addNewAdventures(city);
+          });
       })();
 
       //executed when onChange() is triggered on duration filter dropdown
@@ -188,7 +209,7 @@
         // TODO: MODULE_FILTERS
         // 1. Change the DOM to clear the Duration filter. Refer clearCategory() below
         // 2. Invoke saveFiltersToLocalStorage here
-        
+
         document.getElementById("duration-select").value = "";
 
         filters.duration = "";
