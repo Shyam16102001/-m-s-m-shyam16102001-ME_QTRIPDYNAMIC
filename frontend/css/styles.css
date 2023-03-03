@@ -66,6 +66,7 @@ footer {
 
   object-fit: cover;
 }
+
 .tile img:hover {
   -webkit-filter: brightness(50%);
   transform: scale(1.1);
@@ -78,6 +79,7 @@ footer {
   letter-spacing: 2px;
   text-align: center;
 }
+
 .hero-image {
   /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
@@ -156,9 +158,11 @@ footer {
   -webkit-transition: 0.2s all;
   border-radius: 2px;
 }
+
 .activity-card-image:hover {
   -webkit-filter: brightness(50%);
 }
+
 .experience-content ul li {
   margin-left: 16px;
   padding: 0;
@@ -216,9 +220,11 @@ footer {
   justify-content: center;
   cursor: pointer;
 }
+
 .reserve-button:hover {
   background-color: rgb(226, 129, 1);
 }
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -230,9 +236,11 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
 #reserved-banner {
   display: none;
 }
+
 .reservation-visit-button {
   background-color: rgb(255, 145, 0);
   color: #fff;
@@ -257,10 +265,16 @@ input[type="number"] {
   border-radius: 4px;
   padding: 16px;
   margin-bottom: 30px;
+  display: none;
 }
+
 #reservation-panel-available {
   border: solid 1px #eee;
   border-radius: 4px;
   padding: 16px;
   margin-bottom: 30px;
+}
+
+#reservation-table-parent {
+  display: none;
 }

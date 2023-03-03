@@ -37,16 +37,6 @@ function addReservationToTable(reservations) {
     reservationTable.style.display = "block";
     let tableBody = document.getElementById("reservation-table");
     const elements = [];
-    //   {
-    //     "name": "Snfln1",
-    //     "date": "2023-03-01",
-    //     "person": "1",
-    //     "adventure": "5328424651",
-    //     "adventureName": "Tifwales Ferry",
-    //     "price": 3137,
-    //     "id": "1e36e2b3da55fa12",
-    //     "time": "Tue Feb 28 2023 16:21:26 GMT+0530 (India Standard Time)"
-    // }
     reservations.forEach((reservation) => {
       let tableRow = document.createElement("tr");
       tableRow.innerHTML = `
