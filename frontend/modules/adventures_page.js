@@ -1,5 +1,5 @@
 import config from "../conf/index.js";
-let cacheData =""
+let cacheData = ""
 
 //Implementation to extract city from query params
 function getCityFromURL(search) {
@@ -31,6 +31,7 @@ function addAdventureToDOM(adventures) {
   // TODO: MODULE_ADVENTURES
   // 1. Populate the Adventure Cards and insert those details into the DOM
   const divElement = document.getElementById("data");
+  divElement.innerHTML = "";
   const elements = [];
 
   adventures.forEach((place) => {
@@ -166,13 +167,13 @@ function generateFilterPillsAndUpdateDOM(filters) {
   if (filters.category.length) {
     filters.category.forEach((category) => {
       const categoryDiv = document.createElement("div");
-      categoryDiv.setAttribute("class","category-filter d-flex align-items-baseline");
+      categoryDiv.setAttribute("class", "category-filter d-flex align-items-baseline");
       const categoryText = document.createElement("span");
       categoryText.innerText = category;
       categoryDiv.append(categoryText);
 
       const closeButton = document.createElement("button");
-      closeButton.setAttribute("class","category-filter-close btn p-1");
+      closeButton.setAttribute("class", "category-filter-close btn p-1");
       closeButton.innerHTML = `<i class="bi bi-x-circle"></i>`;
       closeButton.addEventListener("click", () => {
         const index = filters.category.indexOf(category);
